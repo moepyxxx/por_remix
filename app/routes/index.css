@@ -1,0 +1,30 @@
+.mizutama span {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background: linear-gradient(0.25turn, #f7dcb7, #d5f1cd, #c8cae9);
+  top: 0;
+  left: 0;
+}
+
+.mizutama1 span {
+  -webkit-clip-path: url(#mizutama1);
+  clip-path: url(#mizutama1);
+}
+
+.mizutama1 path {
+  transform: translate(800px, 800px) rotate(30deg) scale(0.5);
+}
+
+.mizutama2 span {
+  -webkit-clip-path: url(#mizutama2);
+  clip-path: url(#mizutama2);
+}
+
+.mizutama2 path {
+  transform: translate(200px, 200px) rotate(0deg) scale(1);
+}
+
+.title {
+  text-shadow: 2px 2px 0px transparent, 4px 4px 0px var(--thin-gray);
+}

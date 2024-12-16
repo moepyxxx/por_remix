@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --thin-gray: #f2f0ed;
+}
+
 html,
 body {
   @apply bg-white dark:bg-gray-950;
