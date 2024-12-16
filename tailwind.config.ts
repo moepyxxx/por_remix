@@ -4,9 +4,13 @@ export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      colors: {
+        "thin-gray": "#F2F0ED",
+      },
       fontFamily: {
         sans: [
-          "Inter",
+          "Lexend Exa",
+          "Zen Kaku Gothic New",
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
