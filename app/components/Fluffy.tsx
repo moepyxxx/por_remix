@@ -62,19 +62,44 @@ export const Fluffy: FC<Props> = ({ id }) => {
         y: endPosition.y,
       });
 
-      const isX = endPosition.x === 0 || endPosition.x === window.innerWidth;
-      const isZero = endPosition.y === 0 || endPosition.y === 0;
+      const possibleSides = [
+        {
+          side: "left",
+          x: 0,
+          y: Math.floor(Math.random() * window.innerHeight),
+        },
+        {
+          side: "right",
+          x: window.innerWidth,
+          y: Math.floor(Math.random() * window.innerHeight),
+        },
+        { side: "top", x: Math.floor(Math.random() * window.innerWidth), y: 0 },
+        {
+          side: "bottom",
+          x: Math.floor(Math.random() * window.innerWidth),
+          y: window.innerHeight,
+        },
+      ];
+
+      let filteredSides = possibleSides;
+
+      if (endPosition.x === 0) {
+        filteredSides = possibleSides.filter((side) => side.side !== "left");
+      } else if (endPosition.x === window.innerWidth) {
+        filteredSides = possibleSides.filter((side) => side.side !== "right");
+      } else if (endPosition.y === 0) {
+        filteredSides = possibleSides.filter((side) => side.side !== "top");
+      } else if (endPosition.y === window.innerHeight) {
+        filteredSides = possibleSides.filter((side) => side.side !== "bottom");
+      }
+
+      // ランダムに次の候補を選択
+      const nextPosition =
+        filteredSides[Math.floor(Math.random() * filteredSides.length)];
+
       setEndPosition({
-        x: isX
-          ? Math.floor(Math.random() * window.innerWidth) + 1
-          : isZero
-          ? window.innerWidth
-          : 0,
-        y: !isX
-          ? Math.floor(Math.random() * window.innerHeight) + 1
-          : isZero
-          ? window.innerHeight
-          : 0,
+        x: nextPosition.x,
+        y: nextPosition.y,
       });
     },
   });
