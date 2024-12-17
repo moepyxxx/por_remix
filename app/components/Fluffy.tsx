@@ -70,7 +70,7 @@ export const Fluffy: FC<Props> = ({
     reset: true,
     config: {
       duration:
-        getDistance(startPosition, endPosition) / (isFadeOuting ? 1 : 0.05),
+        getDistance(startPosition, endPosition) / (isFadeOuting ? 0.5 : 0.05),
     },
     onRest: () => {
       setStartPosition({
@@ -122,10 +122,8 @@ export const Fluffy: FC<Props> = ({
 
   const opacityStyles = useSpring({
     opacity: !isReady || isFadeOuting ? 0 : 1,
-    config: { duration: 1000 },
+    config: { duration: 2000 },
     onRest: () => {
-      console.log("rest!");
-      console.log(isFadeOuting, "isFadeOuting");
       onFadeOutEnd();
     },
   });
