@@ -1,5 +1,4 @@
 import { useMemo, useState, type FC } from "react";
-import "./fluffy.css";
 import { useSpring, animated } from "@react-spring/web";
 
 type Props = {
@@ -116,18 +115,20 @@ export const Fluffy: FC<Props> = ({ id, isReady }) => {
 
   return (
     <>
-      <animated.div className="mizutama mizutama1" style={opacityStyles}>
+      <animated.div style={opacityStyles}>
         <span
           style={{
-            clipPath: `url(#mizutama${id})`,
+            clipPath: `url(#fluffy${id})`,
+            background: "linear-gradient(0.25turn, #f7dcb7, #d5f1cd, #c8cae9)",
           }}
+          className="w-dvw h-dvh fixed top-0 left-0"
         />
         <svg width="0" height="0">
-          <title>mizutama{id}</title>
+          <title>fluffy{id}</title>
           <defs>
-            <clipPath id={`mizutama${id}`}>
+            <clipPath id={`fluffy${id}`}>
               <animated.path
-                className={`mizutama${id}`}
+                className={`fluffy${id}`}
                 fill="#FF0066"
                 d={shape}
                 style={{
