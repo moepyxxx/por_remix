@@ -1,10 +1,14 @@
 import { useAnimationFrame } from "providers/AnimationFrameProvider";
 import { useEffect, useRef, type FC } from "react";
 
+const DELAY_FRAMES = 50;
 const LINE_ANIMATION_TOTAL_FRAMES = 100;
 const LINE_ANIMATION_COUNT = 7;
 
-export const Title: FC = () => {
+type Props = {
+  OnEndRenderTitle: () => void;
+};
+export const Title: FC<Props> = ({ OnEndRenderTitle }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const { frame } = useAnimationFrame();
@@ -27,8 +31,21 @@ export const Title: FC = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const progress = frame / LINE_ANIMATION_TOTAL_FRAMES;
-    if (progress > 1) return;
+    const progress =
+      frame < DELAY_FRAMES
+        ? 0
+        : (frame - DELAY_FRAMES) / LINE_ANIMATION_TOTAL_FRAMES; // アニメーション中のprogressを計算
+
+    // タイトル表示終了を知らせる
+    if (progress > 1.5) {
+      OnEndRenderTitle();
+      return;
+    }
+    if (progress > 1) {
+      return;
+    }
+
+    if (progress === 0) return;
 
     const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
     gradient.addColorStop(0, "#F8B966");
@@ -134,7 +151,7 @@ export const Title: FC = () => {
       );
     }
     ctx.stroke();
-  }, [frame]);
+  }, [frame, OnEndRenderTitle]);
 
   return (
     <>

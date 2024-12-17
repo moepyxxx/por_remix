@@ -4,8 +4,9 @@ import { useSpring, animated } from "@react-spring/web";
 
 type Props = {
   id: number;
+  isReady: boolean;
 };
-export const Fluffy: FC<Props> = ({ id }) => {
+export const Fluffy: FC<Props> = ({ id, isReady }) => {
   const [startPosition, setStartPosition] = useState({
     x: Math.floor(Math.random() * window.innerWidth) + 1,
     y: Math.floor(Math.random() * window.innerHeight) + 1,
@@ -108,9 +109,14 @@ export const Fluffy: FC<Props> = ({ id }) => {
     },
   });
 
+  const opacityStyles = useSpring({
+    opacity: isReady ? 1 : 0,
+    config: { duration: 2000 },
+  });
+
   return (
     <>
-      <div className="mizutama mizutama1">
+      <animated.div className="mizutama mizutama1" style={opacityStyles}>
         <span
           style={{
             clipPath: `url(#mizutama${id})`,
@@ -124,12 +130,14 @@ export const Fluffy: FC<Props> = ({ id }) => {
                 className={`mizutama${id}`}
                 fill="#FF0066"
                 d={shape}
-                style={styles}
+                style={{
+                  ...styles,
+                }}
               />
             </clipPath>
           </defs>
         </svg>
-      </div>
+      </animated.div>
     </>
   );
 };
