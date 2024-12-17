@@ -4,8 +4,15 @@ import { useSpring, animated } from "@react-spring/web";
 type Props = {
   id: number;
   isReady: boolean;
+  isFadeOuting: boolean;
+  onFadeOutEnd: () => void;
 };
-export const Fluffy: FC<Props> = ({ id, isReady }) => {
+export const Fluffy: FC<Props> = ({
+  id,
+  isReady,
+  isFadeOuting,
+  onFadeOutEnd,
+}) => {
   const [startPosition, setStartPosition] = useState({
     x: Math.floor(Math.random() * window.innerWidth) + 1,
     y: Math.floor(Math.random() * window.innerHeight) + 1,
@@ -54,11 +61,16 @@ export const Fluffy: FC<Props> = ({ id, isReady }) => {
       transform: `translate(${startPosition.x}px, ${startPosition.y}px) scale(${scale}) rotate(0deg)`,
     },
     to: {
-      transform: `translate(${endPosition.x}px, ${endPosition.y}px) scale(${scale}) rotate(360deg)`,
+      transform: isFadeOuting
+        ? `translate(${window.innerWidth / 2}px, ${
+            window.innerHeight / 2
+          }px) scale(0) rotate(360deg)`
+        : `translate(${endPosition.x}px, ${endPosition.y}px) scale(${scale}) rotate(360deg)`,
     },
     reset: true,
     config: {
-      duration: getDistance(startPosition, endPosition) / 0.05,
+      duration:
+        getDistance(startPosition, endPosition) / (isFadeOuting ? 1 : 0.05),
     },
     onRest: () => {
       setStartPosition({
@@ -109,8 +121,13 @@ export const Fluffy: FC<Props> = ({ id, isReady }) => {
   });
 
   const opacityStyles = useSpring({
-    opacity: isReady ? 1 : 0,
-    config: { duration: 2000 },
+    opacity: !isReady || isFadeOuting ? 0 : 1,
+    config: { duration: 1000 },
+    onRest: () => {
+      console.log("rest!");
+      console.log(isFadeOuting, "isFadeOuting");
+      onFadeOutEnd();
+    },
   });
 
   return (
