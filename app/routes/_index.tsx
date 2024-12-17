@@ -17,7 +17,6 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const [isEndIntroduction, setIsEndIntroduction] = useState(false);
-  console.log(isEndIntroduction, "end");
   return (
     <div className="flex h-screen items-center justify-center">
       {Array.from({ length: FLUFFY_COUNT }, (_, i) => i).map((i) => {

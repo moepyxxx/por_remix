@@ -58,7 +58,7 @@ export const Fluffy: FC<Props> = ({ id, isReady }) => {
     },
     reset: true,
     config: {
-      duration: getDistance(startPosition, endPosition) / 0.1,
+      duration: getDistance(startPosition, endPosition) / 0.05,
     },
     onRest: () => {
       setStartPosition({
