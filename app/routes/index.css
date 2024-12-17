@@ -25,6 +25,6 @@
   transform: translate(200px, 200px) rotate(0deg) scale(1);
 }
 
-.title {
-  text-shadow: 2px 2px 0px transparent, 4px 4px 0px var(--thin-gray);
-}
+/* .title {
+  text-shadow: 2px 2px 0px #000, 4px 4px 0px var(--thin-gray);
+} */
