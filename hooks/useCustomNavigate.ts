@@ -7,6 +7,6 @@ export const useCustomNavigate = () => {
   const navigate = useNavigate();
 
   return (to: string) => {
-    navigate(to);
+    document.startViewTransition().updateCallbackDone.then(() => navigate(to));
   };
 };

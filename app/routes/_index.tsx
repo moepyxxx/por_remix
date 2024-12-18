@@ -46,9 +46,7 @@ export default function Index() {
             onFadeOutEnd={() => {
               if (waitingPath === "") return;
 
-              document
-                .startViewTransition()
-                .updateCallbackDone.then(() => navigate(waitingPath));
+              navigate(waitingPath);
             }}
           />
         );
