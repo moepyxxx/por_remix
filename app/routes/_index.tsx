@@ -53,14 +53,16 @@ export default function Index() {
           />
         );
       })}
-      <div className={`flex justify-center ${opacityClass}`}>
+      <div className={`flex justify-center items-center ${opacityClass}`}>
         <AnimationFrameProvider>
-          <Title
-            title="moepyxxx"
-            OnEndRenderTitle={() => {
-              setIsEndIntroduction(true);
-            }}
-          />
+          <div className="">
+            <Title
+              label="moepyxxx"
+              OnEndRenderTitle={() => {
+                setIsEndIntroduction(true);
+              }}
+            />
+          </div>
         </AnimationFrameProvider>
         <nav className="fixed bottom-10">
           <ul className="flex gap-6">

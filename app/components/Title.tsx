@@ -6,10 +6,15 @@ const LINE_ANIMATION_TOTAL_FRAMES = 100;
 const LINE_ANIMATION_COUNT = 7;
 
 type Props = {
-  title: string;
+  label: string;
+  type?: "main" | "sub";
   OnEndRenderTitle?: () => void;
 };
-export const Title: FC<Props> = ({ OnEndRenderTitle, title }) => {
+export const Title: FC<Props> = ({
+  OnEndRenderTitle,
+  label,
+  type = "main",
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const { frame } = useAnimationFrame();
@@ -20,7 +25,6 @@ export const Title: FC<Props> = ({ OnEndRenderTitle, title }) => {
 
     const title = titleRef.current;
     if (!title) return;
-
     canvas.width = title.clientWidth * 1.5;
     canvas.height = title.clientHeight * 3;
   }, []);
@@ -155,14 +159,19 @@ export const Title: FC<Props> = ({ OnEndRenderTitle, title }) => {
   }, [frame, OnEndRenderTitle]);
 
   return (
-    <>
-      <canvas ref={canvasRef} className="fixed inset-0 m-auto" />
-      <div
-        ref={titleRef}
-        className="flex flex-col items-center gap-16 relative w-400">
-        <h1 className="title font-bold text-6xl text-thin-gray">{title}</h1>
+    <div className="relative">
+      <canvas ref={canvasRef} />
+      <div className="flex flex-col items-center justify-center gap-16 absolute inset-0 my-0 mx-auto">
+        <div ref={titleRef} className="w-400">
+          <h1
+            className={`text-center title font-bold leading-[3.8rem] ${
+              type === "main" ? "text-6xl" : "text-4xl"
+            } text-thin-gray`}>
+            {label}
+          </h1>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
