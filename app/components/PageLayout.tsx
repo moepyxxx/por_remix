@@ -27,10 +27,9 @@ export const PageLayout: FC<Props> = ({
   const navigationRef = useRef<ElementRef<typeof Navigation>>(null);
 
   const spring = useSpring({
-    from: { opacity: 1, transform: "translateY(0)" },
+    from: { opacity: 1 },
     to: {
       opacity: isTransition ? 0 : 1,
-      transform: isTransition ? "translateY(-10px)" : "translateY(0)",
     },
     config: {
       duration: 500,

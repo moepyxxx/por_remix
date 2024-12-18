@@ -5,6 +5,7 @@ import { Fluffy } from "~/components/Fluffy";
 import { useMemo, useRef, useState, type ElementRef } from "react";
 import { AnimationFrameProvider } from "providers/AnimationFrameProvider";
 import { Navigation } from "~/components/Navigation";
+import { useSpring, animated } from "@react-spring/web";
 
 export const FLUFFY_COUNT = 60;
 
@@ -23,10 +24,20 @@ export default function Index() {
 
   const navigationRef = useRef<ElementRef<typeof Navigation>>(null);
 
-  const opacityClass = useMemo(
+  const titleFadeStyles = useMemo(
     () => (isTransition ? "opacity-0" : "opacity-1"),
     [isTransition]
   );
+
+  const naviFadeStyles = useSpring({
+    from: { opacity: isEndIntroduction ? 1 : 0 },
+    to: {
+      opacity: isTransition || !isEndIntroduction ? 0 : 1,
+    },
+    config: {
+      duration: 500,
+    },
+  });
 
   return (
     <div className="flex h-screen items-center justify-center">
@@ -45,24 +56,22 @@ export default function Index() {
           />
         );
       })}
-      <div className={`flex justify-center items-center ${opacityClass}`}>
+      <div className={`flex justify-center items-center ${titleFadeStyles}`}>
         <AnimationFrameProvider>
-          <div className="">
-            <Title
-              label="moepyxxx"
-              OnEndRenderTitle={() => {
-                setIsEndIntroduction(true);
-              }}
-            />
-          </div>
-        </AnimationFrameProvider>
-        <div className="fixed bottom-10">
-          <Navigation
-            ref={navigationRef}
-            onTransition={() => setIsTransition(true)}
+          <Title
+            label="moepyxxx"
+            OnEndRenderTitle={() => {
+              setIsEndIntroduction(true);
+            }}
           />
-        </div>
+        </AnimationFrameProvider>
       </div>
+      <animated.div style={naviFadeStyles} className="fixed bottom-10">
+        <Navigation
+          ref={navigationRef}
+          onTransition={() => setIsTransition(true)}
+        />
+      </animated.div>
     </div>
   );
 }
