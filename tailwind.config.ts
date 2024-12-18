@@ -7,6 +7,9 @@ export default {
       colors: {
         "thin-gray": "#F2F0ED",
       },
+      width: {
+        "400": "400px",
+      },
       fontFamily: {
         sans: [
           "Lexend Exa",

@@ -19,14 +19,12 @@ const AnimationFrameContext = createContext<AnimationFrameContextValue>({
 });
 
 export const AnimationFrameProvider: FC<PropsWithChildren> = ({ children }) => {
-  const frameRef = useRef<number>(0);
   const animationIDRef = useRef<number | null>(null);
   const [frame, setFrame] = useState(0);
 
   useEffect(() => {
     const animation = () => {
-      frameRef.current += 1;
-      setFrame(frameRef.current);
+      setFrame((prev) => prev + 1);
       animationIDRef.current = requestAnimationFrame(animation);
     };
     animation();

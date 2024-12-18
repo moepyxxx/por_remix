@@ -6,9 +6,10 @@ const LINE_ANIMATION_TOTAL_FRAMES = 100;
 const LINE_ANIMATION_COUNT = 7;
 
 type Props = {
-  OnEndRenderTitle: () => void;
+  title: string;
+  OnEndRenderTitle?: () => void;
 };
-export const Title: FC<Props> = ({ OnEndRenderTitle }) => {
+export const Title: FC<Props> = ({ OnEndRenderTitle, title }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const { frame } = useAnimationFrame();
@@ -38,7 +39,7 @@ export const Title: FC<Props> = ({ OnEndRenderTitle }) => {
 
     // タイトル表示終了を知らせる
     if (progress > 1.5) {
-      OnEndRenderTitle();
+      OnEndRenderTitle?.();
       return;
     }
     if (progress > 1) {
@@ -158,8 +159,8 @@ export const Title: FC<Props> = ({ OnEndRenderTitle }) => {
       <canvas ref={canvasRef} className="fixed inset-0 m-auto" />
       <div
         ref={titleRef}
-        className="flex flex-col items-center gap-16 relative">
-        <h1 className="title font-bold text-6xl text-thin-gray">hogehoge</h1>
+        className="flex flex-col items-center gap-16 relative w-400">
+        <h1 className="title font-bold text-6xl text-thin-gray">{title}</h1>
       </div>
     </>
   );

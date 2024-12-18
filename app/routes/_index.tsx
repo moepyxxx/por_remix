@@ -3,7 +3,9 @@ import styles from "./index.css?url";
 import { Title } from "~/components/Title";
 import { Fluffy } from "~/components/Fluffy";
 import { useMemo, useState } from "react";
-import { Link, useNavigate } from "@remix-run/react";
+import { Link } from "@remix-run/react";
+import { useCustomNavigate } from "hooks/useCustomNavigate";
+import { AnimationFrameProvider } from "providers/AnimationFrameProvider";
 
 export const FLUFFY_COUNT = 60;
 
@@ -20,7 +22,7 @@ export default function Index() {
   const [isEndIntroduction, setIsEndIntroduction] = useState(false);
   const [isTransition, setIsTransition] = useState(false);
   const [waitingPath, setWaitingPath] = useState("");
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
 
   const handleClick = (to: string) => {
     setWaitingPath(to);
@@ -52,11 +54,14 @@ export default function Index() {
         );
       })}
       <div className={`flex justify-center ${opacityClass}`}>
-        <Title
-          OnEndRenderTitle={() => {
-            setIsEndIntroduction(true);
-          }}
-        />
+        <AnimationFrameProvider>
+          <Title
+            title="moepyxxx"
+            OnEndRenderTitle={() => {
+              setIsEndIntroduction(true);
+            }}
+          />
+        </AnimationFrameProvider>
         <nav className="fixed bottom-10">
           <ul className="flex gap-6">
             <li className="text-xl">

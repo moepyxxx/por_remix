@@ -1,4 +1,6 @@
 import type { MetaFunction } from "@remix-run/react";
+import { AnimationFrameProvider } from "providers/AnimationFrameProvider";
+import { Title } from "~/components/Title";
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,5 +10,11 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Me() {
-  return <div className="w-dvw h-dvh flex">this is me page</div>;
+  return (
+    <div className="flex h-screen items-center justify-center">
+      <AnimationFrameProvider>
+        <Title title="わたくし" />
+      </AnimationFrameProvider>
+    </div>
+  );
 }
