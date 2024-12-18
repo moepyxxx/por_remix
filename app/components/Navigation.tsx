@@ -1,6 +1,6 @@
 import { Link, useLocation } from "@remix-run/react";
 import { useCustomNavigate } from "hooks/useCustomNavigate";
-import { useEffect, useState, type FC } from "react";
+import { forwardRef, useImperativeHandle, useState, type FC } from "react";
 
 const MENUS = [
   {
@@ -15,23 +15,60 @@ const MENUS = [
 
 type Props = {
   onTransition: () => void;
-  isTransitionEnd: boolean;
+  type?: "main" | "side";
 };
-export const Navigation: FC<Props> = ({ onTransition, isTransitionEnd }) => {
-  const [waitingPath, setWaitingPath] = useState("");
-  const navigate = useCustomNavigate();
-  const location = useLocation();
 
-  useEffect(() => {
-    if (isTransitionEnd) {
-      navigate(waitingPath);
+type NavigationHandle = {
+  transition: () => void;
+};
+
+export const Navigation = forwardRef<NavigationHandle, Props>(
+  function Navigation({ onTransition, type = "main" }: Props, ref) {
+    const [waitingPath, setWaitingPath] = useState("");
+    const navigate = useCustomNavigate();
+
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          transition() {
+            navigate(waitingPath);
+          },
+        };
+      },
+      [waitingPath, navigate]
+    );
+
+    const handleClick = (to: string) => {
+      setWaitingPath(to);
+      onTransition();
+    };
+
+    if (type === "main") {
+      return <SideNavigation handleClick={handleClick} />;
     }
-  }, [isTransitionEnd, navigate, waitingPath]);
 
-  const handleClick = (to: string) => {
-    setWaitingPath(to);
-    onTransition();
-  };
+    return (
+      <div className="mx-10 flex justify-between items-center">
+        <Link
+          to="/"
+          onClick={(e) => {
+            e.preventDefault();
+            handleClick("/");
+          }}>
+          moepyxxx
+        </Link>
+        <SideNavigation handleClick={handleClick} />
+      </div>
+    );
+  }
+);
+
+type SideNavigationProps = {
+  handleClick: (to: string) => void;
+};
+const SideNavigation: FC<SideNavigationProps> = ({ handleClick }) => {
+  const location = useLocation();
 
   return (
     <nav>

@@ -2,7 +2,7 @@ import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import styles from "./index.css?url";
 import { Title } from "~/components/Title";
 import { Fluffy } from "~/components/Fluffy";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, type ElementRef } from "react";
 import { AnimationFrameProvider } from "providers/AnimationFrameProvider";
 import { Navigation } from "~/components/Navigation";
 
@@ -20,7 +20,8 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   const [isEndIntroduction, setIsEndIntroduction] = useState(false);
   const [isTransition, setIsTransition] = useState(false);
-  const [isEndTransition, setIsEndTransition] = useState(false);
+
+  const navigationRef = useRef<ElementRef<typeof Navigation>>(null);
 
   const opacityClass = useMemo(
     () => (isTransition ? "opacity-0" : "opacity-1"),
@@ -37,7 +38,9 @@ export default function Index() {
             isReady={isEndIntroduction}
             isFadeOuting={isTransition}
             onFadeOutEnd={() => {
-              setIsEndTransition(true);
+              if (navigationRef.current) {
+                navigationRef.current.transition();
+              }
             }}
           />
         );
@@ -55,8 +58,8 @@ export default function Index() {
         </AnimationFrameProvider>
         <div className="fixed bottom-10">
           <Navigation
+            ref={navigationRef}
             onTransition={() => setIsTransition(true)}
-            isTransitionEnd={isEndTransition}
           />
         </div>
       </div>
