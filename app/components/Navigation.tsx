@@ -6,10 +6,12 @@ const MENUS = [
   {
     path: "/me",
     label: "わたくし",
+    internal: true,
   },
   {
-    path: "/text",
+    path: "https://zenn.dev/moepyxxx",
     label: "書きもの",
+    internal: false,
   },
 ];
 
@@ -81,14 +83,20 @@ const SideNavigation: FC<SideNavigationProps> = ({ handleClick }) => {
                 : ""
             }`}
             key={menu.path}>
-            <Link
-              to={menu.path}
-              onClick={(e) => {
-                e.preventDefault();
-                handleClick(menu.path);
-              }}>
-              {menu.label}
-            </Link>
+            {menu.internal ? (
+              <Link
+                to={menu.path}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleClick(menu.path);
+                }}>
+                {menu.label}
+              </Link>
+            ) : (
+              <a href={menu.path} target="_blank" rel="noopener noreferrer">
+                {menu.label}
+              </a>
+            )}
           </li>
         ))}
       </ul>
