@@ -1,5 +1,4 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
-import styles from "./index.css?url";
+import type { MetaFunction } from "@remix-run/node";
 import { Title } from "~/components/Title";
 import { Fluffy } from "~/components/Fluffy";
 import { useMemo, useRef, useState, type ElementRef } from "react";
@@ -8,8 +7,6 @@ import { Navigation } from "~/components/Navigation";
 import { useSpring, animated } from "@react-spring/web";
 
 export const FLUFFY_COUNT = 60;
-
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export const meta: MetaFunction = () => {
   return [
