@@ -13,6 +13,7 @@ declare module "@remix-run/node" {
 // deploy: see
 // https://zenn.dev/cybozu_frontend/articles/remix-spa-mode-gh-page
 export default defineConfig({
+  base: "/por_remix/",
   plugins: [
     remix({
       ssr: false,
