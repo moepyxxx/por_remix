@@ -1,6 +1,8 @@
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { copyFileSync } from "node:fs";
+import { join } from "node:path";
 
 declare module "@remix-run/node" {
   interface Future {
@@ -8,10 +10,21 @@ declare module "@remix-run/node" {
   }
 }
 
+// deploy: see
+// https://zenn.dev/cybozu_frontend/articles/remix-spa-mode-gh-page
 export default defineConfig({
   plugins: [
     remix({
       ssr: false,
+      basename: "/por_remix/",
+      buildEnd(args) {
+        if (!args.viteConfig.isProduction) return;
+        const buildPath = args.viteConfig.build.outDir;
+        copyFileSync(
+          join(buildPath, "index.html"),
+          join(buildPath, "404.html")
+        );
+      },
       future: {
         v3_fetcherPersist: true,
         v3_relativeSplatPath: true,
