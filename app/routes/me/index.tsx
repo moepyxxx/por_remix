@@ -18,7 +18,7 @@ export default function Me() {
       title="わたくし"
       isReady={isEndIntroduction}
       onReady={() => setIsEndIntroduction(true)}>
-      <div className="mx-auto space-y-20 max-w-[600px] w-10/12">
+      <div className="mx-auto space-y-14 sm:space-y-20 max-w-[600px] w-10/12">
         <Introduction isReady={isEndIntroduction} />
       </div>
     </PageLayout>
