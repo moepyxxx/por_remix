@@ -25,7 +25,7 @@ export const links: LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   // see: https://qiita.com/99no_exit/items/d159e16a2001530f0b4e
-  const widthRef = useRef<number>(0);
+  const widthRef = useRef<number>(window.innerWidth);
   useEffect(() => {
     const reloadHandler = () => {
       // 多少のズレを許容する
