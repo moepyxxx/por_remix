@@ -51,7 +51,7 @@ export const Navigation = forwardRef<NavigationHandle, Props>(
     }
 
     return (
-      <div className="mx-10 flex justify-between items-center">
+      <div className="mx-5 sm:mx-10 flex justify-between items-center">
         <Link
           to="/"
           onClick={(e) => {
@@ -74,10 +74,10 @@ const SideNavigation: FC<SideNavigationProps> = ({ handleClick }) => {
 
   return (
     <nav>
-      <ul className="flex gap-6">
+      <ul className="flex gap-3 sm:gap-6">
         {MENUS.map((menu) => (
           <li
-            className={`text-xl ${
+            className={`text-base sm:text-xl ${
               menu.path === location.pathname
                 ? "pointer-events-none text-gray-300"
                 : ""

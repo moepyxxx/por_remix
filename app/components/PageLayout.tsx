@@ -49,7 +49,7 @@ export const PageLayout: FC<Props> = ({
   return (
     <animated.div style={spring} className="min-h-screen py-20">
       <div className={opacityClass}>
-        <div className="fixed top-10 w-full">
+        <div className="fixed top-5 z-10 sm:top-10 w-full">
           <Navigation
             ref={navigationRef}
             type="side"
@@ -57,7 +57,7 @@ export const PageLayout: FC<Props> = ({
           />
         </div>
       </div>
-      <div className="flex h-96 items-center justify-center">
+      <div className="flex h-60 sm:h-96 items-center justify-center">
         <AnimationFrameProvider>
           <Title label={title} type="sub" OnEndRenderTitle={onReady} />
         </AnimationFrameProvider>
