@@ -4,6 +4,9 @@ import { useEffect, useRef, type FC } from "react";
 const DELAY_FRAMES = 50;
 const LINE_ANIMATION_TOTAL_FRAMES = 100;
 const LINE_ANIMATION_COUNT = 7;
+const LINE_CANVAS_WIDTH_BASE = 1119;
+const LINE_CANVAS_HEIGHT_BASE = 361;
+const LINE_BORDER_WIDTH_BASE = 160;
 
 type Props = {
   label: string;
@@ -25,8 +28,10 @@ export const Title: FC<Props> = ({
 
     const title = titleRef.current;
     if (!title) return;
-    canvas.width = title.clientWidth * 1.5;
-    canvas.height = title.clientHeight * 3;
+    const width = title.clientWidth * 1.5;
+    const height = (width * LINE_CANVAS_HEIGHT_BASE) / LINE_CANVAS_WIDTH_BASE;
+    canvas.width = width;
+    canvas.height = height;
   }, []);
 
   useEffect(() => {
@@ -35,6 +40,65 @@ export const Title: FC<Props> = ({
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+
+    const bezierPoints = [
+      {
+        c1x: (325.5 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c1y: (132.11 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        c2x: (360 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c2y: (52.61 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        px: (398 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        py: (87.61 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+      },
+      {
+        c1x: (436 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c1y: (122.61 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        c2x: (259 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c2y: (257.73 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        px: (343 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        py: (263.25 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+      },
+      {
+        c1x: (427 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c1y: (268.78 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        c2x: (540 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c2y: (35.11 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        px: (563.5 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        py: (87.61 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+      },
+      {
+        c1x: (587 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c1y: (140.11 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        c2x: (560 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c2y: (239.75 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        px: (613.5 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        py: (271.5 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+      },
+      {
+        c1x: (667 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c1y: (303.25 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        c2x: (748 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c2y: (34.61 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        px: (768.5 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        py: (87.61 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+      },
+      {
+        c1x: (789 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c1y: (140.61 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        c2x: (715.5 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c2y: (282 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        px: (757 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        py: (281.61 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+      },
+      {
+        c1x: (798.5 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c1y: (281.61 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        c2x: (807.5 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        c2y: (199.61 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+        px: (968 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        py: (126.11 * canvas.height) / LINE_CANVAS_HEIGHT_BASE,
+      },
+    ];
 
     const progress =
       frame < DELAY_FRAMES
@@ -56,77 +120,35 @@ export const Title: FC<Props> = ({
     gradient.addColorStop(0, "#F8B966");
     gradient.addColorStop(1, "#78CEDB");
     ctx.strokeStyle = gradient;
-    ctx.lineWidth = 80;
+    ctx.lineWidth =
+      (LINE_BORDER_WIDTH_BASE * canvas.width) / LINE_CANVAS_WIDTH_BASE;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (progress === 1) {
       ctx.beginPath();
-      ctx.moveTo(151 / 2, 187.11 / 2);
-      ctx.bezierCurveTo(
-        325.5 / 2,
-        132.11 / 2,
-        360 / 2,
-        52.61 / 2,
-        398 / 2,
-        87.61 / 2
+      ctx.moveTo(
+        (151 * canvas.width) / LINE_CANVAS_WIDTH_BASE,
+        (187.11 * canvas.height) / LINE_CANVAS_HEIGHT_BASE
       );
-      ctx.bezierCurveTo(
-        436 / 2,
-        122.61 / 2,
-        259 / 2,
-        257.73 / 2,
-        343 / 2,
-        263.25 / 2
-      );
-      ctx.bezierCurveTo(
-        427 / 2,
-        268.78 / 2,
-        540 / 2,
-        35.11 / 2,
-        563.5 / 2,
-        87.61 / 2
-      );
-      ctx.bezierCurveTo(
-        587 / 2,
-        140.11 / 2,
-        560 / 2,
-        239.75 / 2,
-        613.5 / 2,
-        271.5 / 2
-      );
-      ctx.bezierCurveTo(
-        667 / 2,
-        303.25 / 2,
-        748 / 2,
-        34.61 / 2,
-        768.5 / 2,
-        87.61 / 2
-      );
-      ctx.bezierCurveTo(
-        789 / 2,
-        140.61 / 2,
-        715.5 / 2,
-        282 / 2,
-        757 / 2,
-        281.61 / 2
-      );
-      ctx.bezierCurveTo(
-        798.5 / 2,
-        281.61 / 2,
-        807.5 / 2,
-        199.61 / 2,
-        968 / 2,
-        126.11 / 2
-      );
+      for (let i = 0; i < 7; i++) {
+        ctx.bezierCurveTo(
+          bezierPoints[i].c1x,
+          bezierPoints[i].c1y,
+          bezierPoints[i].c2x,
+          bezierPoints[i].c2y,
+          bezierPoints[i].px,
+          bezierPoints[i].py
+        );
+      }
       ctx.stroke();
       return;
     }
 
     ctx.beginPath();
-    let startX = 151 / 2;
-    let startY = 187.11 / 2;
+    let startX = (151 * canvas.width) / LINE_CANVAS_WIDTH_BASE;
+    let startY = (187.11 * canvas.height) / LINE_CANVAS_HEIGHT_BASE;
     ctx.moveTo(startX, startY);
     const { lineProgress, remainingProgress } = calculateLineProgress(
       progress,
@@ -135,24 +157,24 @@ export const Title: FC<Props> = ({
     );
     for (let i = 0; i < lineProgress; i++) {
       ctx.bezierCurveTo(
-        BEZIER_POINTS[i].c1x,
-        BEZIER_POINTS[i].c1y,
-        BEZIER_POINTS[i].c2x,
-        BEZIER_POINTS[i].c2y,
-        BEZIER_POINTS[i].px,
-        BEZIER_POINTS[i].py
+        bezierPoints[i].c1x,
+        bezierPoints[i].c1y,
+        bezierPoints[i].c2x,
+        bezierPoints[i].c2y,
+        bezierPoints[i].px,
+        bezierPoints[i].py
       );
-      startX = BEZIER_POINTS[i].px;
-      startY = BEZIER_POINTS[i].py;
+      startX = bezierPoints[i].px;
+      startY = bezierPoints[i].py;
     }
     if (lineProgress < LINE_ANIMATION_COUNT) {
       ctx.bezierCurveTo(
-        lerp(startX, BEZIER_POINTS[lineProgress].c1x, remainingProgress),
-        lerp(startY, BEZIER_POINTS[lineProgress].c1y, remainingProgress),
-        lerp(startX, BEZIER_POINTS[lineProgress].c2x, remainingProgress),
-        lerp(startY, BEZIER_POINTS[lineProgress].c2y, remainingProgress),
-        lerp(startX, BEZIER_POINTS[lineProgress].px, remainingProgress),
-        lerp(startY, BEZIER_POINTS[lineProgress].py, remainingProgress)
+        lerp(startX, bezierPoints[lineProgress].c1x, remainingProgress),
+        lerp(startY, bezierPoints[lineProgress].c1y, remainingProgress),
+        lerp(startX, bezierPoints[lineProgress].c2x, remainingProgress),
+        lerp(startY, bezierPoints[lineProgress].c2y, remainingProgress),
+        lerp(startX, bezierPoints[lineProgress].px, remainingProgress),
+        lerp(startY, bezierPoints[lineProgress].py, remainingProgress)
       );
     }
     ctx.stroke();
@@ -162,10 +184,10 @@ export const Title: FC<Props> = ({
     <div className="relative">
       <canvas ref={canvasRef} />
       <div className="flex flex-col items-center justify-center gap-16 absolute inset-0 my-0 mx-auto">
-        <div ref={titleRef} className="w-400">
+        <div ref={titleRef} className="w-3/4 sm:w-400">
           <h1
             className={`text-center title font-bold leading-[3.8rem] ${
-              type === "main" ? "text-6xl" : "text-4xl"
+              type === "main" ? "text-4xl sm:text-6xl" : "text-3xl sm:text-4xl"
             } text-thin-gray`}>
             {label}
           </h1>
@@ -192,62 +214,3 @@ function calculateLineProgress(
 
   return { lineProgress, remainingProgress };
 }
-
-const BEZIER_POINTS = [
-  {
-    c1x: 325.5 / 2,
-    c1y: 132.11 / 2,
-    c2x: 360 / 2,
-    c2y: 52.61 / 2,
-    px: 398 / 2,
-    py: 87.61 / 2,
-  },
-  {
-    c1x: 436 / 2,
-    c1y: 122.61 / 2,
-    c2x: 259 / 2,
-    c2y: 257.73 / 2,
-    px: 343 / 2,
-    py: 263.25 / 2,
-  },
-  {
-    c1x: 427 / 2,
-    c1y: 268.78 / 2,
-    c2x: 540 / 2,
-    c2y: 35.11 / 2,
-    px: 563.5 / 2,
-    py: 87.61 / 2,
-  },
-  {
-    c1x: 587 / 2,
-    c1y: 140.11 / 2,
-    c2x: 560 / 2,
-    c2y: 239.75 / 2,
-    px: 613.5 / 2,
-    py: 271.5 / 2,
-  },
-  {
-    c1x: 667 / 2,
-    c1y: 303.25 / 2,
-    c2x: 748 / 2,
-    c2y: 34.61 / 2,
-    px: 768.5 / 2,
-    py: 87.61 / 2,
-  },
-  {
-    c1x: 789 / 2,
-    c1y: 140.61 / 2,
-    c2x: 715.5 / 2,
-    c2y: 282 / 2,
-    px: 757 / 2,
-    py: 281.61 / 2,
-  },
-  {
-    c1x: 798.5 / 2,
-    c1y: 281.61 / 2,
-    c2x: 807.5 / 2,
-    c2y: 199.61 / 2,
-    px: 968 / 2,
-    py: 126.11 / 2,
-  },
-];
