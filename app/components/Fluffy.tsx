@@ -172,8 +172,14 @@ const MAX_SCALE_LATE_BASE = 1;
 const SCALE_WIDTH_BASE = 1000;
 
 function getRandomScale(windowWidth: number) {
-  const min = (MIN_SCALE_LATE_BASE * windowWidth) / SCALE_WIDTH_BASE;
-  const max = (MAX_SCALE_LATE_BASE * windowWidth) / SCALE_WIDTH_BASE;
+  const min = Math.max(
+    (MIN_SCALE_LATE_BASE * windowWidth) / SCALE_WIDTH_BASE,
+    0.005
+  );
+  const max = Math.min(
+    (MAX_SCALE_LATE_BASE * windowWidth) / SCALE_WIDTH_BASE,
+    1.5
+  );
   return Math.random() * (max - min) + min;
 }
 
