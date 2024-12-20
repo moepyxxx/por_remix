@@ -8,7 +8,7 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
-// import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,16 +24,23 @@ export const links: LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  // useEffect(() => {
-  //   const reloadHandler = () => {
-  //     window.location.reload();
-  //   };
-  //   window.addEventListener("resize", reloadHandler);
+  // see: https://qiita.com/99no_exit/items/d159e16a2001530f0b4e
+  const widthRef = useRef<number>(0);
+  useEffect(() => {
+    const reloadHandler = () => {
+      // 多少のズレを許容する
+      if (Math.abs(widthRef.current - window.innerWidth) <= 10) {
+        return;
+      }
+      widthRef.current = window.innerWidth;
+      window.location.reload();
+    };
+    window.addEventListener("resize", reloadHandler);
 
-  //   return () => {
-  //     window.removeEventListener("resize", reloadHandler);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("resize", reloadHandler);
+    };
+  }, []);
 
   return (
     <html lang="ja">
