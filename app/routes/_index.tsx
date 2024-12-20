@@ -6,7 +6,7 @@ import { AnimationFrameProvider } from "providers/AnimationFrameProvider";
 import { Navigation } from "~/components/Navigation";
 import { useSpring, animated } from "@react-spring/web";
 
-const FLUFFY_COUNT_BASE = 5;
+const FLUFFY_COUNT_BASE = 30;
 const FLUFFY_COUNT_MAX = 100;
 const FLUFFY_COUNT_WIDTH_BASE = 1000;
 
