@@ -38,7 +38,7 @@ export default function Index() {
 
   return (
     <div className="flex h-screen items-center justify-center">
-      {Array.from({ length: FLUFFY_COUNT }, (_, i) => i).map((i) => {
+      {/* {Array.from({ length: FLUFFY_COUNT }, (_, i) => i).map((i) => {
         return (
           <Fluffy
             key={i}
@@ -52,7 +52,7 @@ export default function Index() {
             }}
           />
         );
-      })}
+      })} */}
       <div className={`flex justify-center items-center ${titleFadeStyles}`}>
         <AnimationFrameProvider>
           <Title
