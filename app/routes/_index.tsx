@@ -55,6 +55,7 @@ export default function Index() {
             isReady={isEndIntroduction}
             isFadeOuting={isTransition}
             onFadeOutEnd={() => {
+              // 数分実行されているのでよくはなさそう・・・
               if (navigationRef.current) {
                 navigationRef.current.transition();
               }
