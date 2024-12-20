@@ -1,16 +1,25 @@
 import { Link, useLocation } from "@remix-run/react";
 import { useCustomNavigate } from "hooks/useCustomNavigate";
 import { forwardRef, useImperativeHandle, useState, type FC } from "react";
+// import GithubWhiteImage from "~/assets/github-mark-white.png";
+import GithubImage from "~/assets/github-mark.png";
 
 const MENUS = [
   {
     path: "/me",
-    label: "わたくし",
+    content: "わたくし",
     internal: true,
   },
   {
     path: "https://zenn.dev/moepyxxx",
-    label: "書きもの",
+    content: "書きもの",
+    internal: false,
+  },
+  {
+    path: "https://github.com/moepyxxx/por_remix",
+    content: (
+      <img src={GithubImage} width={28} height={28} alt="githubアイコン" />
+    ),
     internal: false,
   },
 ];
@@ -74,7 +83,7 @@ const SideNavigation: FC<SideNavigationProps> = ({ handleClick }) => {
 
   return (
     <nav>
-      <ul className="flex gap-3 sm:gap-6">
+      <ul className="flex gap-3 sm:gap-6 items-center">
         {MENUS.map((menu) => (
           <li
             className={`text-base sm:text-xl ${
@@ -90,11 +99,11 @@ const SideNavigation: FC<SideNavigationProps> = ({ handleClick }) => {
                   e.preventDefault();
                   handleClick(menu.path);
                 }}>
-                {menu.label}
+                {menu.content}
               </Link>
             ) : (
               <a href={menu.path} target="_blank" rel="noopener noreferrer">
-                {menu.label}
+                {menu.content}
               </a>
             )}
           </li>
