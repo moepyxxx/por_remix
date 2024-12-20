@@ -54,7 +54,7 @@ export const Fluffy: FC<Props> = ({
     () => FLUFFY_SHAPES[Math.floor(Math.random() * FLUFFY_SHAPES.length)],
     []
   );
-  const scale = useMemo(() => getRandomScale(), []);
+  const scale = useMemo(() => getRandomScale(window.innerWidth), []);
 
   const styles = useSpring({
     from: {
@@ -167,8 +167,14 @@ function getDistance(
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-function getRandomScale() {
-  return Math.random() * (1 - 0.05) + 0.05;
+const MIN_SCALE_LATE_BASE = 0.05;
+const MAX_SCALE_LATE_BASE = 1;
+const SCALE_WIDTH_BASE = 1000;
+
+function getRandomScale(windowWidth: number) {
+  const min = (MIN_SCALE_LATE_BASE * windowWidth) / SCALE_WIDTH_BASE;
+  const max = (MAX_SCALE_LATE_BASE * windowWidth) / SCALE_WIDTH_BASE;
+  return Math.random() * (max - min) + min;
 }
 
 const FLUFFY_SHAPES = [
