@@ -8,7 +8,7 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,16 +24,16 @@ export const links: LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    const reloadHandler = () => {
-      window.location.reload();
-    };
-    window.addEventListener("resize", reloadHandler);
+  // useEffect(() => {
+  //   const reloadHandler = () => {
+  //     window.location.reload();
+  //   };
+  //   window.addEventListener("resize", reloadHandler);
 
-    return () => {
-      window.removeEventListener("resize", reloadHandler);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", reloadHandler);
+  //   };
+  // }, []);
 
   return (
     <html lang="ja">
