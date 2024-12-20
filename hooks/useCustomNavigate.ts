@@ -8,6 +8,7 @@ export const useCustomNavigate = () => {
 
   return (to: string) => {
     navigate(to);
+    // このAPIがiosのブラウザで動かない…
     // document.startViewTransition().updateCallbackDone.then(() => navigate(to));
   };
 };

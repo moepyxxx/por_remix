@@ -6,7 +6,9 @@ import { AnimationFrameProvider } from "providers/AnimationFrameProvider";
 import { Navigation } from "~/components/Navigation";
 import { useSpring, animated } from "@react-spring/web";
 
-export const FLUFFY_COUNT = 10;
+const FLUFFY_COUNT_BASE = 60;
+const FLUFFY_COUNT_MAX = 100;
+const FLUFFY_COUNT_WIDTH_BASE = 1000;
 
 export const meta: MetaFunction = () => {
   return [
@@ -36,9 +38,16 @@ export default function Index() {
     },
   });
 
+  const fluffyCount = useMemo(() => {
+    return Math.min(
+      (FLUFFY_COUNT_BASE * window.innerWidth) / FLUFFY_COUNT_WIDTH_BASE,
+      FLUFFY_COUNT_MAX
+    );
+  }, []);
+
   return (
     <div className="flex h-screen items-center justify-center">
-      {Array.from({ length: FLUFFY_COUNT }, (_, i) => i).map((i) => {
+      {Array.from({ length: fluffyCount }, (_, i) => i).map((i) => {
         return (
           <Fluffy
             key={i}
